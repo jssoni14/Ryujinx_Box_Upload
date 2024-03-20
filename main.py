@@ -9,6 +9,7 @@ import dropbox
 data_ryu = "Ryujinx.zip"
 path = "/Ryujinx/Ryujinx.zip"
 ryujinx_with_date = ""
+
 dbx = dropbox.Dropbox("DROP_BOX_KEY")
 dbx.users_get_current_account()
 

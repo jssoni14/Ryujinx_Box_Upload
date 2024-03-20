@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt
       - name: excute py script
         env:
-          DROP_BOX_KEY : ${{ secrets.DROP_BOX_KEY}}
+          DROP_BOX_KEY : ${{ secrets.DROP_BOX_KEY }}
         run: python main.py
 
       - name: commit files
