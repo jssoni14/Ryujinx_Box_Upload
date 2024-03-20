@@ -55,7 +55,7 @@ response = request.urlretrieve(download_url, ryujinx_with_date)
 for entry in dbx.files_list_folder('').entries:
     print(entry.name)
 ryujinx_path_dbx = '/Ryujinx/'+ ryujinx_with_date
-with open(data_ryu, "rb") as f:
+with open(ryujinx_with_date, "rb") as f:
     res = dbx.files_upload(f.read(), ryujinx_path_dbx, mute = True)
     print(res)
 #dbx.files_upload(data.read(), path)
