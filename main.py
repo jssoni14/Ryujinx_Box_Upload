@@ -13,7 +13,7 @@ ryujinx_with_date = ""
 
 DROPBOX_API_KEY = os.environ["DROP_BOX_KEY"]
 print(DROPBOX_API_KEY)
-dbx = dropbox.Dropbox({DROPBOX_API_KEY})
+dbx = dropbox.Dropbox(DROPBOX_API_KEY)
 dbx.users_get_current_account()
 
 current_datetime = datetime.now().strftime("%Y-%m-%d")
