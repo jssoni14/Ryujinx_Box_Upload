@@ -1,11 +1,28 @@
 import requests
+from datetime import datetime
+import json
 import re
 import sys
 from bs4 import BeautifulSoup
 from urllib import request
+import dropbox
+data_ryu = "Ryujinx.zip"
+path = "/Ryujinx/Ryujinx.zip"
+ryujinx_with_date = ""
+dbx = dropbox.Dropbox("DROP_BOX_KEY")
+dbx.users_get_current_account()
 
+current_datetime = datetime.now().strftime("%Y-%m-%d")
+print("Current date: ", current_datetime)
+
+str_current_datetime = str(current_datetime)
+ryujinx_with_date = "Ryujinx_" + str_current_datetime + '.zip'
+
+url = "https://content.dropboxapi.com/2/files/upload"
 pattern_zip = "4.zip"
 url_links = []
+
+
 
 urls = 'https://github.com/Ryujinx/release-channel-master/releases'
 base_url = 'https://github.com'
@@ -29,5 +46,16 @@ with open("test1.txt", "r") as text_file:
 
 
 download_url = base_url + url_links[0]
-response = request.urlretrieve(download_url, "Ryujinx.zip")
+print(download_url)
+response = request.urlretrieve(download_url, ryujinx_with_date)
+for entry in dbx.files_list_folder('').entries:
+    print(entry.name)
+ryujinx_path_dbx = '/Ryujinx/'+ ryujinx_with_date
+with open(data_ryu, "rb") as f:
+    res = dbx.files_upload(f.read(), ryujinx_path_dbx, mute = True)
+    print(res)
+#dbx.files_upload(data.read(), path)
+#data = open("Ryujinx.zip", "rb").read()
 
+#r = requests.post(url, headers=headers, data=data)
+#print(r)
