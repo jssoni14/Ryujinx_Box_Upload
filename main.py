@@ -6,6 +6,7 @@ import sys
 from bs4 import BeautifulSoup
 from urllib import request
 import dropbox
+import os
 data_ryu = "Ryujinx.zip"
 path = "/Ryujinx/Ryujinx.zip"
 ryujinx_with_date = ""
