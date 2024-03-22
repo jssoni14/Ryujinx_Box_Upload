@@ -13,7 +13,8 @@ ryujinx_with_date = ""
 
 DROPBOX_API_KEY = os.environ["DROP_BOX_KEY"]
 print(DROPBOX_API_KEY)
-dbx = dropbox.Dropbox(DROPBOX_API_KEY)
+dropbox_response=dbx = dropbox.Dropbox(DROPBOX_API_KEY)
+print(dropbox_response)
 dbx.users_get_current_account()
 
 current_datetime = datetime.now().strftime("%Y-%m-%d")
@@ -51,13 +52,15 @@ with open("test1.txt", "r") as text_file:
 
 download_url = base_url + url_links[0]
 print(download_url)
-response = request.urlretrieve(download_url, ryujinx_with_date)
+#response = request.urlretrieve(download_url, ryujinx_with_date)
 for entry in dbx.files_list_folder('').entries:
     print(entry.name)
 ryujinx_path_dbx = '/Ryujinx/'+ ryujinx_with_date
+"""
 with open(ryujinx_with_date, "rb") as f:
     res = dbx.files_upload(f.read(), ryujinx_path_dbx, mute = True)
     print(res)
+"""
 #dbx.files_upload(data.read(), path)
 #data = open("Ryujinx.zip", "rb").read()
 
