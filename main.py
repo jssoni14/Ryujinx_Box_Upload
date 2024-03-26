@@ -5,17 +5,12 @@ import re
 import sys
 from bs4 import BeautifulSoup
 from urllib import request
-import dropbox
 import os
 data_ryu = "Ryujinx.zip"
 path = "/Ryujinx/Ryujinx.zip"
 ryujinx_with_date = ""
-
-DROPBOX_API_KEY = os.environ["DROP_BOX_KEY"]
-print(DROPBOX_API_KEY)
-dropbox_response=dbx = dropbox.Dropbox(DROPBOX_API_KEY)
-print(dropbox_response)
-dbx.users_get_current_account()
+download_url = ""
+Ryujinx_URL = []
 
 current_datetime = datetime.now().strftime("%Y-%m-%d")
 print("Current date: ", current_datetime)
@@ -23,8 +18,9 @@ print("Current date: ", current_datetime)
 str_current_datetime = str(current_datetime)
 ryujinx_with_date = "Ryujinx_" + str_current_datetime + '.zip'
 
-url = "https://content.dropboxapi.com/2/files/upload"
+
 pattern_zip = "4.zip"
+pattern_headless = "-ryujinx-"
 url_links = []
 
 
@@ -39,30 +35,30 @@ f = open("Ryzu_links.txt", "w")
 # traverse paragraphs from soup
 for link in soup.find_all("a"):
    data = link.get('href')
+   Ryujinx_URL.append(data)
    f.write(data)
    f.write("\n")
-
+print(Ryujinx_URL)
 f.close()
+"""
 with open("test1.txt", "r") as text_file:
   for line in text_file:
       if re.search(pattern_zip, line):
           print(line)
           url_links.append(line)
 
+          match_obj = re.search(pattern_headless, u)
+    if not match_obj:
+      print(u)
+"""
+for u in Ryujinx_URL:
+   if re.search(pattern_zip, u):
+    url_obj = re.search(pattern_headless, u)
+    if not url_obj:
+      url_obj_2 = re.search("archive", u)
+      if not url_obj_2:
+        download_url = u
 
-download_url = base_url + url_links[0]
+download_url = base_url + download_url
 print(download_url)
-#response = request.urlretrieve(download_url, ryujinx_with_date)
-for entry in dbx.files_list_folder('').entries:
-    print(entry.name)
-ryujinx_path_dbx = '/Ryujinx/'+ ryujinx_with_date
-"""
-with open(ryujinx_with_date, "rb") as f:
-    res = dbx.files_upload(f.read(), ryujinx_path_dbx, mute = True)
-    print(res)
-"""
-#dbx.files_upload(data.read(), path)
-#data = open("Ryujinx.zip", "rb").read()
-
-#r = requests.post(url, headers=headers, data=data)
-#print(r)
+response = request.urlretrieve(download_url, ryujinx_with_date)
